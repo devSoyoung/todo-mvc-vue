@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js - Todo MVC</title>
+        <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+        <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+        <style> [v-cloak] { display: none; } </style>
+    </head>
+    <body>
+        <section class="todoapp" v-cloak>
+            <header class="header">
+                <h1>todos</h1>
+                <input class="new-todo" autofocus autocomplete="off" placeholder="완료해야 할 작업이 무엇인가요?" v-model="newTodo" @keyup.enter="addTodo">
+            </header>
+            <section class="main" v-show="todos.length">
+                <input type="checkbox" id="toggle-all" class="toggle-all" v-model="allDone">
+                <label for="toggle-all">완료한 모든 작업을 체크하세요.</label>
+                <ul class="todo-list">
+                    <li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{completed: todo.completed, editing: todo == editedTodo}">
+                        <div class="view">
+                            <input type="checkbox" class="toggle" v-model="todo.completed">
+                            <label @dblclick="editTodo(todo)">{{todo.title}}</label>
+                            <button class="destroy" @click="removeTodo(todo)"></button>
+                        </div>
+                        <!-- v-todo-focus: 사용자가 정의한 지시문 -->
+                        <input type="text" class="edit" v-model="todo.title" v-todo-focus="todo == editedTodo" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)">
+                    </li>
+                </ul>
+            </section>
+            <footer class="footer" v-show="todos.length">
+                <span class="todo-count">
+                    <strong v-text="remaining"></strong> {{pluralize('item', remaining)}} 남아있습니다.
+                </span>
+                <ul class="filters">
+                    <li><a href="#/all" :class="{selected: visibility == 'all'}">전체</a></li>
+                    <li><a href="#/active" :class="{selected: visibility == 'active'}">활성화</a></li>
+                    <li><a href="#/completed" :class="{selected: visibility == 'completed'}">완료</a></li>
+                </ul>
+                <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
+                    완료 목록 지우기
+                </button>
+            </footer>
+        </section>
+        <footer class="info">
+            <p>할 일을 편집하려면 더블클릭하세요.</p>
+        </footer>
+
+        <script src="node_modules/todomvc-common/base.js"></script>
+        <script src="node_modules/director/build/director.js"></script>
+        <script src="node_modules/vue/dist/vue.js"></script>
+        <script src="js/store.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/routes.js"></script>
+    </body>
+</html>
