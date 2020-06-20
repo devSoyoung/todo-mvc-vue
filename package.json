@@ -1,0 +1,21 @@
+{
+  "name": "todo-mvc-vue",
+  "version": "1.0.0",
+  "description": "To do Application with vue.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue.js",
+    "todo"
+  ],
+  "author": "devSoyoung",
+  "license": "ISC",
+  "dependencies": {
+    "director": "^1.2.8",
+    "todomvc-app-css": "^2.3.0",
+    "todomvc-common": "^1.0.5",
+    "vue": "^2.6.11"
+  }
+}
